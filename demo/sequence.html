@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><title>连续答题演示</title>
+<style>
+body { max-width:640px; margin:32px auto; padding:0 16px; font:16px/1.7 system-ui,sans-serif; color:#173f31; background:#edf5f0; }
+article { padding:20px; border:1px solid #b9d7c6; border-radius:12px; background:white; }
+label { display:block; } input[type=text],textarea,[contenteditable] { display:block; width:90%; border:1px solid #a3b7ac; min-height:35px; margin:8px 0; padding:5px; }
+button,a { display:inline-block; margin:12px 8px 0 0; padding:7px 14px; }
+</style></head>
+<body><h1>连续答题演示</h1><p>一页一题，包含单选、文本框、文本域和富文本输入区。</p><article id="stage"></article>
+<script>
+const query = new URLSearchParams(location.search);
+let page = Number(query.get('page') || 1);
+const full = query.get('full') === '1';
+const stage = document.getElementById('stage');
+function render() {
+  stage.innerHTML = '<p>第 ' + page + ' / 3 题</p>' + (page === 1
+    ? '<h2>2 + 3 等于多少？</h2><label><input type="radio" name="sum">4</label><label><input type="radio" name="sum" id="step-radio">5</label>'
+    : page === 2
+    ? '<h2>请分别填写数字 42、短句 hello world 和词语 测试成功</h2><input type="text" id="step-text" aria-label="数字答案"><textarea id="step-area" aria-label="短句答案"></textarea><div contenteditable="true" id="step-editor" aria-label="词语答案"></div>'
+    : '<h2>最后一题：输入 done</h2><input type="text" id="step-done" aria-label="最后答案">') +
+    (page < 3 ? '<a id="step-next" href="/sequence?page=' + (page+1) + '&full=1">下一题</a>' : '<button type="button" id="submit">提交试卷</button>') +
+    '<output id="events">输入事件：0</output>';
+  let count = 0;
+  stage.addEventListener('input', () => {
+    count += 1;
+    document.getElementById('events').textContent = '输入事件：' + count;
+  }, { once: true });
+  document.getElementById('step-next')?.addEventListener('click', (event) => {
+    if (full) return;
+    event.preventDefault();
+    page += 1;
+    render();
+  });
+  document.getElementById('submit')?.addEventListener('click', () => { document.body.dataset.submitted = 'true'; });
+}
+render();
+</script></body></html>

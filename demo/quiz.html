@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>答题 Agent · 本地练习</title>
+  <style>
+    body { margin: 32px auto; max-width: 600px; padding: 0 16px; background: #eff4f0; color: #20302a; font: 16px/1.65 system-ui, sans-serif; }
+    fieldset, section { background: #fff; border: 1px solid #adc0b6; border-radius: 10px; margin: 16px 0; padding: 14px 18px; }
+    legend, h2 { font-size: 17px; font-weight: 700; }
+    h2 { margin: 0 0 6px; }
+    label { display: block; }
+    button { font: inherit; padding: 3px 10px; }
+    [aria-checked="true"] { background: #bdeacb; }
+  </style>
+</head>
+<body>
+  <h1>答题 Agent · 本地练习</h1>
+  <p>可试用答案预览、模拟点选和图片题。演示 API 不连接外部服务。</p>
+  <form id="quiz">
+    <fieldset>
+      <legend>1. 2 + 3 等于多少？</legend>
+      <label><input type="radio" name="sum"> 4</label>
+      <label><input type="radio" name="sum" id="sum-correct"> 5</label>
+      <label><input type="radio" name="sum"> 6</label>
+    </fieldset>
+    <fieldset>
+      <legend>2. 以下哪些数是质数？（多选）</legend>
+      <label><input type="checkbox" id="prime-two"> 2</label>
+      <label><input type="checkbox" id="prime-four" checked> 4</label>
+      <label><input type="checkbox" id="prime-seven"> 7</label>
+    </fieldset>
+    <section class="question" role="radiogroup" aria-labelledby="water-title">
+      <h2 id="water-title">3. 水的化学式是什么？</h2>
+      <button type="button" role="radio" aria-checked="false" id="water-correct">H₂O</button>
+      <button type="button" role="radio" aria-checked="false">CO₂</button>
+    </section>
+    <fieldset>
+      <legend>4. 图中的绿色图形是什么？</legend>
+      <img src="triangle.svg" width="180" height="110" alt="">
+      <label><input type="radio" name="shape" id="shape-correct"> 三角形</label>
+      <label><input type="radio" name="shape"> 圆形</label>
+    </fieldset>
+    <article>
+      <p>5. 6 + 2 等于多少？</p>
+      <div class="arbitrary-choice" data-value="wrong">A. 7</div>
+      <div class="arbitrary-choice" id="arbitrary-correct" data-value="correct">B. 8</div>
+    </article>
+    <button type="submit">提交练习</button> <output id="submission" aria-live="polite">尚未提交</output>
+  </form>
+  <script>
+    for (const element of document.querySelectorAll('.arbitrary-choice')) {
+      element.style.cursor = 'pointer';
+      element.addEventListener('click', () => {
+        for (const option of document.querySelectorAll('.arbitrary-choice')) option.style.background = '';
+        element.style.background = '#bdeacb';
+        element.dataset.clicked = 'true';
+      });
+    }
+    const group = document.querySelector('[role="radiogroup"]');
+    group.addEventListener('click', (event) => {
+      if (!event.target.matches('[role="radio"]')) return;
+      for (const option of group.querySelectorAll('[role="radio"]')) option.setAttribute('aria-checked', option === event.target);
+    });
+    document.getElementById('quiz').addEventListener('submit', (event) => {
+      event.preventDefault();
+      document.getElementById('submission').textContent = '已提交';
+    });
+  </script>
+</body>
+</html>
