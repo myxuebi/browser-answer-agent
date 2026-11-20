@@ -1,4 +1,6 @@
-const worker = new Worker('model-worker.mjs', { type: 'module' });
+import { t, localize, initializeLocale } from './i18n.mjs';
+initializeLocale().then(() => localize(document)).catch(console.error);
+const worker = new Worker('model-worker.mjs?locale=' + new URLSearchParams(location.search).get('locale'), { type: 'module' });
 const pending = new Map();
 let heartbeat;
 
@@ -17,7 +19,7 @@ worker.onmessage = ({ data: { id, ...response } }) => {
   finish(id, response);
 };
 worker.onerror = () => {
-  for (const id of pending.keys()) finish(id, { error: '后台模型请求无法启动。' });
+  for (const id of pending.keys()) finish(id, { error: t('modelHostFailed') });
 };
 
 chrome.runtime.onMessage.addListener((message, sender, reply) => {

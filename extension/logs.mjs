@@ -1,3 +1,4 @@
+import { t } from './i18n.mjs';
 let writing = Promise.resolve();
 
 export const logKey = (tabId) => `runLogs:${tabId}`;
@@ -7,7 +8,7 @@ export function writeLog(tabId, entry, clear = false) {
     const key = logKey(tabId);
     const stored = await chrome.storage.session.get(key);
     const entries = clear ? [] : [...(stored[key] ?? []), {
-      time: Date.now(), kind: String(entry.kind || '运行').slice(0, 40),
+      time: Date.now(), kind: String(entry.kind || t('logRuntime')).slice(0, 40),
       text: String(entry.text ?? '').slice(0, 8000),
     }].slice(-300);
     await chrome.storage.session.set({ [key]: entries });
@@ -25,7 +26,7 @@ export function createLogger(tabId) {
 }
 
 export function logTime(time) {
-  return new Date(time).toLocaleTimeString('zh-CN', { hour12: false });
+  return new Date(time).toLocaleTimeString(t('locale'), { hour12: false });
 }
 
 export function renderLogs(container, entries) {

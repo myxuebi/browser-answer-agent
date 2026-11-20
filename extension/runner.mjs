@@ -1,11 +1,12 @@
+import { t } from './i18n.mjs';
 export async function ensureActive(tab, signal) {
   signal.throwIfAborted();
   const [active] = await chrome.tabs.query({ active: true, windowId: tab.windowId });
   signal.throwIfAborted();
-  if (active?.id !== tab.id) throw new Error('当前标签页已切换，已停止操作。');
+  if (active?.id !== tab.id) throw new Error(t('activeTabChanged'));
 }
 
-export const siteAccessHint = '请在浏览器的扩展详情中将「站点访问权限」设为「在所有网站上」。';
+export const siteAccessHint = t('siteAccess');
 
 export function isRestrictedPage(url) {
   if (!url) return false;
@@ -17,20 +18,20 @@ export function isRestrictedPage(url) {
 
 function pageAccessError(error, url) {
   if (isRestrictedPage(url) || /cannot access (?:a |urls with |contents of (?:the )?url ["']?)(?:chrome|edge|about|devtools|file)(?:-extension)?:|extensions gallery|protected (?:page|url)/i.test(error.message)) {
-    return new Error('此页受浏览器保护或不是普通网页。请在 HTTP 或 HTTPS 网页上使用。');
+    return new Error(t('protectedPage'));
   }
   if (/cannot access|host permission|access.*denied/i.test(error.message)) {
     return new Error(url
-      ? `浏览器未允许插件读取此页。${siteAccessHint}扩展商店和浏览器内部页面仍不支持。`
-      : `此页可能受浏览器保护，或未授予站点访问权限。若是普通网页，${siteAccessHint}`);
+      ? t('pageAccessDenied', siteAccessHint)
+      : t('pageAccessUnknown', siteAccessHint));
   }
-  return new Error('无法读取此页。页面可能刚刚切换或重新加载，请等加载完成后重试。');
+  return new Error(t('pageReadFailed'));
 }
 
 export async function scanPage(tab, settings, documentId) {
   try {
     const injections = await chrome.scripting.executeScript({
-      target: { tabId: tab.id, allFrames: true }, files: ['html-agent.js'],
+      target: { tabId: tab.id, allFrames: true }, files: ['i18n.js', 'html-agent.js'],
     });
     const entries = await chrome.scripting.executeScript({
       target: { tabId: tab.id, documentIds: injections.map((entry) => entry.documentId) },
@@ -62,7 +63,7 @@ export async function scanPage(tab, settings, documentId) {
       snapshot.skippedImages += source.skippedImages;
       snapshot.truncated ||= source.truncated;
     }
-    if (!snapshot.html) throw new Error('无法读取页面。');
+    if (!snapshot.html) throw new Error(t('cannotRead'));
     return { documentId: documentId || injections.find((entry) => entry.frameId === 0)?.documentId, result: snapshot };
   } catch (error) {
     throw pageAccessError(error, tab.url);
@@ -73,7 +74,7 @@ export async function applyAnswer(tabId, documentId, snapshot, answer, log = () 
   const groups = new Map();
   for (const action of answer.actions) {
     const route = snapshot.routes[action.target];
-    if (!route) throw new Error('模型返回了未提供的元素。');
+    if (!route) throw new Error(t('unknownTarget'));
     const group = groups.get(route.documentId) ?? { token: route.token, actions: [] };
     group.actions.push({ ...action, target: route.target });
     groups.set(route.documentId, group);
@@ -85,16 +86,16 @@ export async function applyAnswer(tabId, documentId, snapshot, answer, log = () 
     const original = answer.actions.find((item) => snapshot.routes[item.target].target === action.target &&
       snapshot.routes[item.target].documentId === frameDocument);
     const target = snapshot.targets.find((item) => item.id === original.target);
-    const description = `${original.target} · ${target?.text || target?.tag || '元素'}`;
-    log(action.type === 'fill' ? '输入计划' : '点击计划', `${action.type === 'fill' ? '输入：' + action.value : action.selected === false ? '取消选中' : action.selected === true ? '选中' : '点击'}：${description}`);
+    const description = `${original.target} · ${target?.text || target?.tag || t('element')}`;
+    log(action.type === 'fill' ? t('logInputPlan') : t('logClickPlan'), `${action.type === 'fill' ? t('inputPrefix') + action.value : action.selected === false ? t('deselect') : action.selected === true ? t('select') : t('click')}：${description}`);
     const args = { token: group.token, actions: [action] };
     const [entry] = await chrome.scripting.executeScript({
       target: { tabId, documentIds: [frameDocument] },
       func: (request) => globalThis.__htmlAnswerAgent?.apply(request), args: [args],
     });
-    if (!entry?.result) throw new Error('无法核对此题执行结果，页面可能已切换或重新加载。');
-    const names = { applied: action.type === 'fill' ? '已输入并核对内容' : '已点击并核对选中状态', clicked: '已点击，页面未提供选中状态', unchanged: '已符合目标状态，无需操作', skipped: '已跳过', partial: '操作结果待核对' };
-    log(action.type === 'fill' ? '输入结果' : '点击结果', `${description}\n${names[entry.result.state] || entry.result.state}${entry.result.detail ? '：' + entry.result.detail : ''}`);
+    if (!entry?.result) throw new Error(t('verifyFailed'));
+    const names = { applied: action.type === 'fill' ? t('inputVerified') : t('clickVerified'), clicked: t('clickUnverified'), unchanged: t('alreadyMatches'), skipped: t('actionSkipped'), partial: t('actionUnverified') };
+    log(action.type === 'fill' ? t('logInputResult') : t('logClickResult'), `${description}\n${names[entry.result.state] || entry.result.state}${entry.result.detail ? '：' + entry.result.detail : ''}`);
     if (['skipped', 'partial'].includes(entry.result.state)) return entry.result;
     if (entry.result.state === 'clicked' || (result.state !== 'clicked' && entry.result.state === 'applied')) result = entry.result;
     }
@@ -104,13 +105,13 @@ export async function applyAnswer(tabId, documentId, snapshot, answer, log = () 
 
 export function imageNotice(snapshot, settings) {
   if (!snapshot.skippedImages) return '';
-  return settings.vision ? `${snapshot.skippedImages} 张图片未能读取或超出图片限额`
-    : `未发送 ${snapshot.skippedImages} 张图片，可在模型设置中开启读图`;
+  return settings.vision ? t('imagesUnavailable', snapshot.skippedImages)
+    : t('imagesNotSent', snapshot.skippedImages);
 }
 
 export async function showOverlay(tab, mode) {
   try {
-    const [{ documentId }] = await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['overlay.js'] });
+    const [{ documentId }] = await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['i18n.js', 'overlay.js'] });
     await chrome.scripting.executeScript({
       target: { tabId: tab.id, documentIds: [documentId] },
       func: (display) => globalThis.__answerAgentOverlay?.show(display), args: [mode],

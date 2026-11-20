@@ -1,3 +1,5 @@
+import { t, localize } from './i18n.mjs';
+localize(document);
 import { loadSettings, parseSettings, requestAnswers } from './model.mjs';
 import { createLogger, logKey, logTime, renderLogs } from './logs.mjs';
 import { askModel, runQuiz } from './quiz-loop.mjs';
@@ -9,7 +11,7 @@ const ui = Object.fromEntries([
   'page-name', 'endpoint', 'model', 'key', 'status', 'results', 'coverage', 'questions', 'api', 'effort', 'vision', 'launcher', 'summary',
   'run-logs', 'log-count', 'log-copy', 'log-clear',
 ].map((id) => [id, byId(id)]));
-const outcomeNames = { applied: '已选中', unchanged: '已是建议答案', clicked: '已点击，未核对', partial: '已点击，结果待核对', skipped: '未点击' };
+const outcomeNames = { applied: t('applied'), unchanged: t('unchanged'), clicked: t('clicked'), partial: t('partial'), skipped: t('skipped') };
 
 let windowId;
 let settings;
@@ -25,7 +27,7 @@ let log = () => {};
 function showLogs(entries) {
   logEntries = entries;
   renderLogs(ui['run-logs'], entries);
-  ui['log-count'].textContent = `${entries.length} 条`;
+  ui['log-count'].textContent = t('logCount', entries.length);
 }
 
 chrome.storage.onChanged.addListener((changes, area) => {
@@ -37,19 +39,19 @@ chrome.storage.onChanged.addListener((changes, area) => {
 ui['log-clear'].addEventListener('click', async () => {
   if (logTabId === undefined) return;
   try { await chrome.runtime.sendMessage({ type: 'log-clear', tabId: logTabId }); }
-  catch { status('无法清空日志，请重新加载插件。', true); }
+  catch { status(t('clearLogFailed'), true); }
 });
 ui['log-copy'].addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(logEntries.map((entry) => `[${logTime(entry.time)}] [${entry.kind}] ${entry.text}`).join('\n'));
-    status('日志已复制。');
-  } catch { status('浏览器未允许复制，请手动选择日志文字。', true); }
+    status(t('logsCopied'));
+  } catch { status(t('copyDenied'), true); }
 });
 
 function status(message, error = false) {
   ui.status.textContent = message;
   ui.status.classList.toggle('error', error);
-  log(error ? '错误' : '运行', message);
+  log(error ? t('logError') : t('logRuntime'), message);
 }
 
 async function activeTab() {
@@ -68,8 +70,8 @@ async function showTab() {
     if (revision !== pageRevision) return;
     showLogs(entries[logKey(currentId)] ?? []);
   }
-  const label = isRestrictedPage(tab?.url) ? '当前标签页不是可读取的普通网页。'
-    : tab?.title || `暂时读不到网页标题。${siteAccessHint}`;
+  const label = isRestrictedPage(tab?.url) ? t('restrictedTab')
+    : tab?.title || t('missingTitle', siteAccessHint);
   ui['page-name'].textContent = label;
   ui['page-name'].title = label;
 }
@@ -96,7 +98,7 @@ function clearPlan() {
 
 function invalidateTab(tabId) {
   if (operation?.navigating && tabId === operation.tabId) return;
-  const message = '标签页或页面已改变。请在目标网页重新分析。';
+  const message = t('pageChanged');
   if (operation?.tabId !== undefined && (tabId === undefined || tabId === operation.tabId)) {
     operation.abort(new Error(message));
     refreshControls();
@@ -113,7 +115,7 @@ function formValues() {
 }
 
 function updateModelBadge() {
-  ui['model-badge'].textContent = settings?.model || '未配置';
+  ui['model-badge'].textContent = settings?.model || t('notConfigured');
 }
 
 ui.endpoint.addEventListener('input', () => {
@@ -130,7 +132,7 @@ ui['settings-form'].addEventListener('submit', async (event) => {
   try {
     const next = parseSettings(formValues());
     if (settings?.key && next.key === settings.key && new URL(next.endpoint).origin !== new URL(settings.endpoint).origin) {
-      throw new Error('接口域名已变更。请清空旧 API Key，或输入新服务的 Key。');
+      throw new Error(t('endpointChanged'));
     }
     saving = true;
     refreshControls();
@@ -144,7 +146,7 @@ ui['settings-form'].addEventListener('submit', async (event) => {
     updateModelBadge();
     clearPlan();
     ui['settings-panel'].open = false;
-    status('模型设置已保存。可以开始分析当前网页。');
+    status(t('settingsSaved'));
   } catch (error) {
     status(error.message, true);
   } finally {
@@ -191,16 +193,16 @@ function renderPlan(tab, documentId, snapshot, result) {
     const outcome = document.createElement('p');
     outcome.className = 'outcome';
     outcome.hidden = Boolean(answer);
-    if (!answer) outcome.textContent = '模型没有给出可执行的建议，已跳过。';
+    if (!answer) outcome.textContent = t('answerSkipped');
     card.append(outcome);
     plan.cards.set(question.id, { checkbox, outcome });
     return card;
   });
   ui.questions.replaceChildren(...cards);
-  ui.coverage.textContent = `${answers.length} 题 · AI 识别`;
+  ui.coverage.textContent = t('coverage', answers.length);
   ui.results.hidden = false;
-  const notes = [snapshot.truncated && 'HTML 超出上限，已发送部分页面', rejected > 0 && `已忽略 ${rejected} 条无效回复`, plan.imageNote].filter(Boolean);
-  const summary = answers.length ? `AI 已从 HTML 识别并给出 ${answers.length} 题建议。` : result.message || 'AI 未给出可执行的答案。';
+  const notes = [snapshot.truncated && t('htmlTruncated'), rejected > 0 && t('ignoredReplies', rejected), plan.imageNote].filter(Boolean);
+  const summary = answers.length ? t('suggestionsReady', answers.length) : result.message || t('noAnswer');
   status(notes.length ? `${summary}${notes.join('；')}。` : summary);
   refreshControls();
   return plan;
@@ -217,7 +219,7 @@ async function applyPlan(current, controller) {
   try {
     for (const answer of selected) {
       await ensureActive(current.tab, controller.signal);
-      status(`正在应用第 ${completed + 1} / ${selected.length} 题…`);
+      status(t('applyingQuestion', completed + 1, selected.length));
       const outcome = await applyAnswer(current.tabId, current.documentId, current.snapshot, answer, log, controller.signal);
       const { state, detail } = outcome;
       const record = current.cards.get(answer.question).outcome;
@@ -230,9 +232,9 @@ async function applyPlan(current, controller) {
     }
     controller.signal.throwIfAborted();
   } catch (error) {
-    throw new Error(`${error.message} 已核对 ${counts.verified} 题，另有 ${counts.clicked} 题点击结果待核对。`);
+    throw new Error(t('partialSummary', error.message, counts.verified, counts.clicked));
   }
-  status(`已核对 ${counts.verified} 题，点击结果待核对 ${counts.clicked} 题，跳过 ${counts.skipped} 题。插件未点击提交。${current.imageNote ? current.imageNote + '。' : ''}`);
+  status(t('applySummary', counts.verified, counts.clicked, counts.skipped, current.imageNote || ''));
 }
 
 async function run(work) {
@@ -243,7 +245,7 @@ async function run(work) {
   try {
     await work(controller);
   } catch (error) {
-    status(error.name === 'AbortError' ? controller.signal.reason?.message || '已停止。' : error.message, true);
+    status(error.name === 'AbortError' ? controller.signal.reason?.message || t('stopped') : error.message, true);
   } finally {
     operation = null;
     refreshControls();
@@ -256,16 +258,16 @@ function analyze(auto) {
     clearPlan();
     if (!settings) {
       ui['settings-panel'].open = true;
-      throw new Error('请先填写并保存模型设置。');
+      throw new Error(t('configureFirst'));
     }
     const tab = await activeTab();
-    if (tab?.id === undefined) throw new Error('没有可读取的标签页。');
+    if (tab?.id === undefined) throw new Error(t('noTab'));
     controller.tabId = tab.id;
     log = createLogger(tab.id);
-    log('开始', auto ? '自动答题' : '分析并预览');
+    log(t('logStart'), auto ? t('auto') : t('preview'));
     if (!await chrome.permissions.contains({ origins: [settings.permission] })) {
       ui['settings-panel'].open = true;
-      throw new Error(`浏览器未允许连接模型接口。${siteAccessHint}`);
+      throw new Error(t('apiPermissionDenied', siteAccessHint));
     }
     if (auto) {
       const summary = await runQuiz({
@@ -284,12 +286,12 @@ function analyze(auto) {
       status(summary);
       return;
     }
-    status('正在读取页面 HTML 和可点击元素…');
+    status(t('readingHtml'));
     const { result: snapshot, documentId } = await scanPage(tab, settings);
-    log('页面读取', `HTML ${snapshot.html.length} 字符；${snapshot.targets.length} 个元素；${Object.keys(snapshot.routes).length ? new Set(Object.values(snapshot.routes).map((route) => route.documentId)).size : 0} 个文档；${snapshot.images.length} 张图片。${snapshot.truncated ? 'HTML 已截取。' : ''}`);
+    log(t('logRead'), t('snapshotStats', snapshot.html.length, snapshot.targets.length, new Set(Object.values(snapshot.routes).map((route) => route.documentId)).size, snapshot.images.length, snapshot.truncated ? t('htmlTruncated') : ''));
     await ensureActive(tab, controller.signal);
-    status(`正在将页面 HTML 发送给 ${settings.model}，由 AI 识别题目并规划点击…`);
-    const timer = setTimeout(() => controller.abort(new Error('模型请求超时（120 秒），未执行点击。')), 120000);
+    status(t('sendingHtml', settings.model));
+    const timer = setTimeout(() => controller.abort(new Error(t('timeoutNoClick'))), 120000);
     let result;
     try {
       result = await requestAnswers(settings, snapshot, controller.signal, log);
@@ -308,15 +310,15 @@ ui.launcher.addEventListener('click', (event) => {
   if (!mode) return;
   run(async (controller) => {
     const tab = await activeTab();
-    if (!tab?.id) throw new Error('没有可读取的标签页。');
+    if (!tab?.id) throw new Error(t('noTab'));
     await ensureActive(tab, controller.signal);
     if (mode === 'sidebar') {
       await removeOverlay(tab.id);
-      status('使用侧边栏开始答题。');
+      status(t('useSidebar'));
       return;
     }
     await showOverlay(tab, mode);
-    status(mode === 'dot' ? '右下角已显示圆点。点击开始，右键展开。' : '右下角已显示悬浮窗，可在网页中开始答题。');
+    status(mode === 'dot' ? t('dotShown') : t('floatingShown'));
   });
 });
 ui.apply.addEventListener('click', () => {
@@ -325,13 +327,13 @@ ui.apply.addEventListener('click', () => {
   run(async (controller) => {
     controller.tabId = current.tabId;
     log = createLogger(current.tabId);
-    log('开始', '应用勾选的建议');
+    log(t('logStart'), t('apply'));
     await applyPlan(current, controller);
   });
 });
 ui.stop.addEventListener('click', () => {
-  operation?.abort(new Error('已停止，不再开始下一题。'));
-  status('正在停止；若正在点选，当前题可能已发生变化。');
+  operation?.abort(new Error(t('stopNext')));
+  status(t('stopping'));
   refreshControls();
 });
 
@@ -361,9 +363,9 @@ try {
   ui['settings-panel'].open = !settings;
   await showTab();
   ready = true;
-  status(settings ? '准备就绪。建议先分析并预览。' : '首次使用请配置模型。');
+  status(settings ? t('ready') : t('firstUse'));
 } catch (error) {
-  status(`无法初始化插件：${error.message}`, true);
+  status(t('initFailed', error.message), true);
 } finally {
   refreshControls();
 }

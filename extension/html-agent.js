@@ -1,5 +1,6 @@
 (() => {
   if (globalThis.__htmlAnswerAgent) return;
+  const { t } = globalThis.__answerAgentI18n;
   let snapshot;
   const clean = (value) => String(value ?? '').replace(/\s+/g, ' ').trim();
   const escape = (value) => String(value).replace(/[&<>"']/g, (char) => ({
@@ -127,11 +128,11 @@
 
   async function apply({ token, actions }) {
     if (snapshot?.token !== token || snapshot.url !== location.href || document.visibilityState !== 'visible') {
-      return { state: 'skipped', detail: '页面已变化，请重新分析。' };
+      return { state: 'skipped', detail: t('localPageChanged') };
     }
     let clicks = 0;
     let uncertain = false;
-    const stale = () => ({ state: clicks ? 'partial' : 'skipped', detail: '目标元素已变化或不可点击，请重新分析。' });
+    const stale = () => ({ state: clicks ? 'partial' : 'skipped', detail: t('targetChanged') });
     for (const action of actions) {
       const original = snapshot.targets.get(action.target);
       const element = original?.element;
@@ -154,14 +155,14 @@
         clicks += 1;
         await new Promise((resolve) => setTimeout(resolve, 80));
         if (!element.isConnected || (element.isContentEditable ? element.textContent : element.value) !== action.value) {
-          return { state: 'partial', detail: '输入后控件变化或内容未保留。' };
+          return { state: 'partial', detail: t('inputNotRetained') };
         }
         continue;
       }
       if (action.type === 'next') {
         if (!original.canNavigate) return stale();
         element.click();
-        return { state: 'clicked', detail: '已点击下一题／下一页，等待内容更新。' };
+        return { state: 'clicked', detail: t('nextClicked') };
       }
       if (typeof action.selected === 'boolean' && before === action.selected) continue;
       if (before !== original.selected) return stale();
@@ -176,12 +177,12 @@
           signature(element) !== original.signature) return stale();
       const after = state(element);
       if (typeof action.selected === 'boolean' && after !== null && after !== action.selected) {
-        return { state: 'partial', detail: '点击后选中状态不匹配。' };
+        return { state: 'partial', detail: t('selectionMismatch') };
       }
       if (after === null) uncertain = true;
     }
     return { state: uncertain ? 'clicked' : clicks ? 'applied' : 'unchanged',
-      ...(uncertain ? { detail: '已模拟点击；页面没有提供可核对的选中状态。' } : {}) };
+      ...(uncertain ? { detail: t('noSelectionState') } : {}) };
   }
 
   globalThis.__htmlAnswerAgent = { scan, apply };

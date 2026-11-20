@@ -1,5 +1,6 @@
 (() => {
   if (globalThis.__answerAgentOverlay) return;
+  const { t, localize } = globalThis.__answerAgentI18n;
   const host = document.createElement('div');
   host.setAttribute('data-answer-agent-overlay', '');
   host.style.cssText = 'all:initial!important;position:fixed!important;right:14px!important;bottom:14px!important;z-index:2147483647!important;display:block!important;';
@@ -17,7 +18,7 @@
       summary { cursor:pointer; font-size:12px; }
       #logs { max-height:210px; overflow:auto; font-size:11px; white-space:pre-wrap; overflow-wrap:anywhere; }
       #logs div { border-top:1px solid #e0ece5; padding:5px 0; }
-      #logs:empty::after { content:'开始答题后显示运行记录'; color:#607367; }
+      #logs:empty::after { content:attr(data-empty-label); color:#607367; }
       button { font:inherit; cursor:pointer; border:1px solid #c9e3d8; border-radius:7px; padding:4px 8px; background:#fff; color:#13382d; }
       button:focus-visible { outline:2px solid #137954; outline-offset:2px }
       button:disabled { opacity:.55; cursor:wait; }
@@ -31,15 +32,16 @@
   `);
   root.adoptedStyleSheets = [sheet];
   root.innerHTML = `
-    <section hidden aria-label="答题 Agent">
-      <header><svg aria-hidden="true" width="21" height="21" viewBox="0 0 64 64"><rect x="1" y="1" width="62" height="62" rx="16" fill="#12694D"/><path d="M20 12h17l9 9v31H17V12h3Z" fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"/><path d="m23 34 6 6 12-13" fill="none" stroke="#9FF0C4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><strong>答题 Agent</strong><button id="min" title="缩小为圆点" aria-label="缩小为圆点" type="button">−</button><button id="close" title="移除悬浮入口" aria-label="移除悬浮入口" type="button">×</button></header>
-      <button class="primary" id="start" type="button">开始答题</button>
-      <button id="stop" type="button" hidden>停止</button>
-      <small id="status" role="status">自动点选、填入答案，并继续下一题。</small>
-      <details open><summary>运行日志（圆点右键展开可查看）</summary><div id="logs" role="log" aria-label="运行日志" aria-live="polite"></div></details>
+    <section hidden aria-label="答题 Agent" data-i18n-aria-label="appName">
+      <header><svg aria-hidden="true" width="21" height="21" viewBox="0 0 64 64"><rect x="1" y="1" width="62" height="62" rx="16" fill="#12694D"/><path d="M20 12h17l9 9v31H17V12h3Z" fill="none" stroke="#fff" stroke-width="4" stroke-linejoin="round"/><path d="m23 34 6 6 12-13" fill="none" stroke="#9FF0C4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg><strong data-i18n="appName">答题 Agent</strong><button id="min" title="缩小为圆点" data-i18n-title="minimize" aria-label="缩小为圆点" data-i18n-aria-label="minimize" type="button">−</button><button id="close" title="移除悬浮入口" data-i18n-title="closeOverlay" aria-label="移除悬浮入口" data-i18n-aria-label="closeOverlay" type="button">×</button></header>
+      <button class="primary" id="start" type="button" data-i18n="startAnswer">开始答题</button>
+      <button id="stop" type="button" hidden data-i18n="stop">停止</button>
+      <small id="status" role="status" data-i18n="overlayHint">自动点选、填入答案，并继续下一题。</small>
+      <details open><summary data-i18n="overlayLogs">运行日志（圆点右键展开可查看）</summary><div data-i18n-empty-label="emptyOverlayLogs" id="logs" role="log" aria-label="运行日志" data-i18n-aria-label="logs" aria-live="polite"></div></details>
     </section>
     <p id="bubble" role="status" hidden></p>
-    <button id="dot" type="button" title="开始答题（右键展开）" aria-label="开始答题（右键展开）" hidden></button>`;
+    <button id="dot" type="button" title="开始答题（右键展开）" data-i18n-title="dotTitle" aria-label="开始答题（右键展开）" data-i18n-aria-label="dotTitle" hidden></button>`;
+  localize(root);
   const find = (id) => root.getElementById(id);
   const panel = root.querySelector('section');
   const dot = find('dot');
@@ -52,7 +54,7 @@
     const list = find('logs');
     const follow = list.scrollHeight - list.scrollTop - list.clientHeight < 40;
     const row = document.createElement('div');
-    row.textContent = `${new Date(entry.time).toLocaleTimeString('zh-CN', { hour12: false })} · ${entry.kind}\n${entry.text}`;
+    row.textContent = `${new Date(entry.time).toLocaleTimeString(t('locale'), { hour12: false })} · ${entry.kind}\n${entry.text}`;
     list.append(row);
     while (list.children.length > 300) list.firstElementChild.remove();
     if (follow) list.scrollTop = list.scrollHeight;
@@ -72,7 +74,7 @@
 
   function report(message, state) {
     find('status').textContent = message;
-    dot.title = `${message}｜${busy ? '点击停止' : '点击开始'}，右键展开`;
+    dot.title = t('dotStatus', message, busy ? t('clickStop') : t('clickStart'));
     dot.setAttribute('aria-label', dot.title);
     dot.dataset.state = state;
     clearTimeout(timer);
@@ -88,12 +90,12 @@
     busy = true;
     find('start').disabled = true;
     find('stop').hidden = false;
-    report('正在读取当前网页…', 'busy');
+    report(t('readingPage'), 'busy');
     let message;
     let state = 'done';
     try {
       const result = await chrome.runtime.sendMessage({ type: 'overlay-start', mode });
-      if (result?.error || !result?.status) throw new Error(result?.error || '任务已结束，请重新打开插件后再试。');
+      if (result?.error || !result?.status) throw new Error(result?.error || t('taskEnded'));
       message = result.status;
     } catch (error) {
       message = error.message;

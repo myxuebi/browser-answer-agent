@@ -1,13 +1,13 @@
 # Chrome / Edge 商店提交资料
 
-资料版本：0.5.2；核查日期：2026-11-20。此文件是提交准备资料，不表示已经上架或获得审核通过。
+资料版本：0.6.0；核查日期：2026-11-20。此文件是提交准备资料，不表示已经上架或获得审核通过。
 
 ## 扩展包
 
 将 `extension/` 内的全部文件打成 ZIP，根目录直接包含 `manifest.json`。不包含开发者浏览器配置、API Key、Git 元数据、demo 或本地日志。
 
 - 名称：答题 Agent
-- 版本：0.5.2
+- 版本：0.6.0
 - 开发者：myxuebi
 - 简介：自定义 AI 模型分析网页 HTML，预览答案、模拟点选和输入，并自动继续下一题。
 - 首页：https://github.com/myxuebi/browser-answer-agent
@@ -15,6 +15,12 @@
 - 隐私政策：https://github.com/myxuebi/browser-answer-agent/blob/main/PRIVACY.md
 - 图标：`extension/icons/128.png`
 - 界面截图：`docs/screenshot.png`
+- 英文名称：Answer Agent；英文截图：`docs/screenshot-en.png`
+- 简体中文和英文各需填写商店描述并上传 Logo；英文介绍见 [英文商店资料](docs/STORE.en.md)。
+
+## 双语列表识别
+
+安装包通过 `default_locale: zh_CN`、`_locales/zh_CN/messages.json`、`_locales/en/messages.json`，以及 manifest 名称和描述中的 `__MSG_…__` 引用声明两种语言。升级时重新上传 0.6.0 ZIP，再检查商店列表里的简体中文和英文条目；若后台未自动增加，可使用 Add a language 添加 Chinese (Simplified)。商店的长描述、Logo、截图仍需为两种语言分别填写，不能仅依赖扩展界面的翻译。
 
 ## 商店介绍
 

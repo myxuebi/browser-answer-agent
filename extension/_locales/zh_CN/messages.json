@@ -1,0 +1,884 @@
+{
+  "locale": {
+    "message": "zh-CN"
+  },
+  "appName": {
+    "message": "答题 Agent"
+  },
+  "appDescription": {
+    "message": "自定义 AI 模型分析网页 HTML，预览答案、模拟点选和输入，并自动继续下一题。"
+  },
+  "actionTitle": {
+    "message": "答题 Agent：打开入口（右键可切换）"
+  },
+  "brandTagline": {
+    "message": "网页练习助手"
+  },
+  "currentTask": {
+    "message": "当前任务"
+  },
+  "analyzePage": {
+    "message": "分析当前网页"
+  },
+  "readingTab": {
+    "message": "正在读取当前标签页…"
+  },
+  "preview": {
+    "message": "分析并预览"
+  },
+  "auto": {
+    "message": "自动答题"
+  },
+  "stop": {
+    "message": "停止"
+  },
+  "taskHint": {
+    "message": "自动答题会点选或填写答案，并继续下一题／下一页。部分网页作答后会自行判分，建议先预览。"
+  },
+  "launcher": {
+    "message": "答题入口"
+  },
+  "sidebar": {
+    "message": "侧边栏"
+  },
+  "removeOverlay": {
+    "message": "移除网页悬浮入口"
+  },
+  "floating": {
+    "message": "悬浮窗"
+  },
+  "dot": {
+    "message": "隐藏圆点"
+  },
+  "modelSettings": {
+    "message": "模型设置"
+  },
+  "notConfigured": {
+    "message": "未配置"
+  },
+  "apiProtocol": {
+    "message": "接口协议"
+  },
+  "endpoint": {
+    "message": "API 地址"
+  },
+  "modelName": {
+    "message": "模型名称"
+  },
+  "modelPlaceholder": {
+    "message": "填写服务商提供的模型 ID"
+  },
+  "effort": {
+    "message": "思考深度"
+  },
+  "defaultEffort": {
+    "message": "服务默认（不传参数）"
+  },
+  "low": {
+    "message": "低"
+  },
+  "medium": {
+    "message": "中"
+  },
+  "high": {
+    "message": "高"
+  },
+  "effortHint": {
+    "message": "仅在模型支持所选档位时设置。"
+  },
+  "requestSummary": {
+    "message": "请求推理摘要（仅支持该能力的 Responses 模型）"
+  },
+  "keyHint": {
+    "message": "选填，保存在本机，重启后自动恢复"
+  },
+  "keyPlaceholder": {
+    "message": "本地无鉴权服务可留空"
+  },
+  "deleteKeyHint": {
+    "message": "清空 API Key 后保存，即可删除已记住的 Key。"
+  },
+  "vision": {
+    "message": "当前模型支持读图（发送可读取的题干和选项图片）"
+  },
+  "saveSettings": {
+    "message": "保存模型设置"
+  },
+  "privacyHint": {
+    "message": "开始分析会把当前页面 HTML 和可点击元素发给模型，由 AI 识别题目并规划点击。勾选读图后附带可读取的图片。"
+  },
+  "firstUse": {
+    "message": "首次使用请配置模型。"
+  },
+  "logs": {
+    "message": "运行日志"
+  },
+  "zeroLogs": {
+    "message": "0 条"
+  },
+  "copyLogs": {
+    "message": "复制日志"
+  },
+  "clear": {
+    "message": "清空"
+  },
+  "logHint": {
+    "message": "显示执行进度、等待时间、答题解释及接口返回的推理摘要；不代表模型完整的内部思考。"
+  },
+  "suggestions": {
+    "message": "模型建议"
+  },
+  "apply": {
+    "message": "应用勾选的建议"
+  },
+  "sourceLabel": {
+    "message": "开源地址："
+  },
+  "usageNotice": {
+    "message": "仅用于练习或经授权的场景。模型答案可能有误。"
+  },
+  "privacyPolicy": {
+    "message": "隐私说明"
+  },
+  "emptyLogs": {
+    "message": "尚无日志。开始分析后会显示运行过程。"
+  },
+  "emptyOverlayLogs": {
+    "message": "开始答题后显示运行记录"
+  },
+  "overlayLogs": {
+    "message": "运行日志（圆点右键展开可查看）"
+  },
+  "minimize": {
+    "message": "缩小为圆点"
+  },
+  "closeOverlay": {
+    "message": "移除悬浮入口"
+  },
+  "startAnswer": {
+    "message": "开始答题"
+  },
+  "overlayHint": {
+    "message": "自动点选、填入答案，并继续下一题。"
+  },
+  "dotTitle": {
+    "message": "开始答题（右键展开）"
+  },
+  "readingPage": {
+    "message": "正在读取当前网页…"
+  },
+  "taskEnded": {
+    "message": "任务已结束，请重新打开插件后再试。"
+  },
+  "stopped": {
+    "message": "已停止。"
+  },
+  "logRuntime": {
+    "message": "运行"
+  },
+  "logError": {
+    "message": "错误"
+  },
+  "logStart": {
+    "message": "开始"
+  },
+  "logDone": {
+    "message": "完成"
+  },
+  "logRead": {
+    "message": "页面读取"
+  },
+  "logChangeCheck": {
+    "message": "换题核对"
+  },
+  "logChangeConfirmed": {
+    "message": "换题确认"
+  },
+  "logNavigate": {
+    "message": "自动翻题"
+  },
+  "logInputPlan": {
+    "message": "输入计划"
+  },
+  "logClickPlan": {
+    "message": "点击计划"
+  },
+  "logInputResult": {
+    "message": "输入结果"
+  },
+  "logClickResult": {
+    "message": "点击结果"
+  },
+  "logModelRequest": {
+    "message": "模型请求"
+  },
+  "logModelWaiting": {
+    "message": "模型处理中"
+  },
+  "logModelResponse": {
+    "message": "模型响应"
+  },
+  "logModelSummary": {
+    "message": "模型推理摘要"
+  },
+  "logModelInfo": {
+    "message": "模型说明"
+  },
+  "logModelComplete": {
+    "message": "模型完成"
+  },
+  "logAnswerReason": {
+    "message": "答题解释"
+  },
+  "applied": {
+    "message": "已选中"
+  },
+  "unchanged": {
+    "message": "已是建议答案"
+  },
+  "clicked": {
+    "message": "已点击，未核对"
+  },
+  "partial": {
+    "message": "已点击，结果待核对"
+  },
+  "skipped": {
+    "message": "未点击"
+  },
+  "clearLogFailed": {
+    "message": "无法清空日志，请重新加载插件。"
+  },
+  "logsCopied": {
+    "message": "日志已复制。"
+  },
+  "copyDenied": {
+    "message": "浏览器未允许复制，请手动选择日志文字。"
+  },
+  "restrictedTab": {
+    "message": "当前标签页不是可读取的普通网页。"
+  },
+  "pageChanged": {
+    "message": "标签页或页面已改变。请在目标网页重新分析。"
+  },
+  "endpointChanged": {
+    "message": "接口域名已变更。请清空旧 API Key，或输入新服务的 Key。"
+  },
+  "settingsSaved": {
+    "message": "模型设置已保存。可以开始分析当前网页。"
+  },
+  "answerSkipped": {
+    "message": "模型没有给出可执行的建议，已跳过。"
+  },
+  "htmlTruncated": {
+    "message": "HTML 超出上限，已发送部分页面"
+  },
+  "noAnswer": {
+    "message": "AI 未给出可执行的答案。"
+  },
+  "configureFirst": {
+    "message": "请先填写并保存模型设置。"
+  },
+  "noTab": {
+    "message": "没有可读取的标签页。"
+  },
+  "readingHtml": {
+    "message": "正在读取页面 HTML 和可点击元素…"
+  },
+  "timeoutNoClick": {
+    "message": "模型请求超时（120 秒），未执行点击。"
+  },
+  "useSidebar": {
+    "message": "使用侧边栏开始答题。"
+  },
+  "dotShown": {
+    "message": "右下角已显示圆点。点击开始，右键展开。"
+  },
+  "floatingShown": {
+    "message": "右下角已显示悬浮窗，可在网页中开始答题。"
+  },
+  "stopNext": {
+    "message": "已停止，不再开始下一题。"
+  },
+  "stopping": {
+    "message": "正在停止；若正在点选，当前题可能已发生变化。"
+  },
+  "ready": {
+    "message": "准备就绪。建议先分析并预览。"
+  },
+  "siteAccess": {
+    "message": "请在浏览器的扩展详情中将「站点访问权限」设为「在所有网站上」。"
+  },
+  "activeTabChanged": {
+    "message": "当前标签页已切换，已停止操作。"
+  },
+  "protectedPage": {
+    "message": "此页受浏览器保护或不是普通网页。请在 HTTP 或 HTTPS 网页上使用。"
+  },
+  "pageReadFailed": {
+    "message": "无法读取此页。页面可能刚刚切换或重新加载，请等加载完成后重试。"
+  },
+  "cannotRead": {
+    "message": "无法读取页面。"
+  },
+  "unknownTarget": {
+    "message": "模型返回了未提供的元素。"
+  },
+  "verifyFailed": {
+    "message": "无法核对此题执行结果，页面可能已切换或重新加载。"
+  },
+  "element": {
+    "message": "元素"
+  },
+  "inputPrefix": {
+    "message": "输入："
+  },
+  "deselect": {
+    "message": "取消选中"
+  },
+  "select": {
+    "message": "选中"
+  },
+  "click": {
+    "message": "点击"
+  },
+  "inputVerified": {
+    "message": "已输入并核对内容"
+  },
+  "clickVerified": {
+    "message": "已点击并核对选中状态"
+  },
+  "clickUnverified": {
+    "message": "已点击，页面未提供选中状态"
+  },
+  "alreadyMatches": {
+    "message": "已符合目标状态，无需操作"
+  },
+  "actionSkipped": {
+    "message": "已跳过"
+  },
+  "actionUnverified": {
+    "message": "操作结果待核对"
+  },
+  "localPageChanged": {
+    "message": "页面已变化，请重新分析。"
+  },
+  "targetChanged": {
+    "message": "目标元素已变化或不可点击，请重新分析。"
+  },
+  "inputNotRetained": {
+    "message": "输入后控件变化或内容未保留。"
+  },
+  "nextClicked": {
+    "message": "已点击下一题／下一页，等待内容更新。"
+  },
+  "selectionMismatch": {
+    "message": "点击后选中状态不匹配。"
+  },
+  "noSelectionState": {
+    "message": "已模拟点击；页面没有提供可核对的选中状态。"
+  },
+  "timeout": {
+    "message": "模型请求超时（120 秒）。"
+  },
+  "noChangeEvidence": {
+    "message": "AI 未提供可核对的新题原文，不将页面文字变化视为换题。"
+  },
+  "repeatedQuestion": {
+    "message": "检测到返回已经处理过的题目，已停止重复作答。"
+  },
+  "invalidActions": {
+    "message": "模型回复包含无效操作，已停止自动翻页，请检查日志后重新分析。"
+  },
+  "checkingNext": {
+    "message": "当前页作答完成，正在让 AI 判断是否有下一题／下一页…"
+  },
+  "noNext": {
+    "message": "AI 判断没有下一题，答题结束。"
+  },
+  "foundNext": {
+    "message": "AI 识别到下一题／下一页。"
+  },
+  "nextNotClickable": {
+    "message": "下一题控件无法点击，请检查运行日志。"
+  },
+  "stillSameQuestion": {
+    "message": "仍是刚才的题目或尚未加载新题，等待后再核对；不重新作答。"
+  },
+  "invalidEndpoint": {
+    "message": "请输入完整的 API 地址，例如 http://localhost:11434/v1。"
+  },
+  "insecureEndpoint": {
+    "message": "请使用 HTTPS 地址（本机可用 HTTP），不要在地址中填写账号、查询参数或片段。"
+  },
+  "invalidSettings": {
+    "message": "接口协议或思考深度无效。"
+  },
+  "protocolMismatch": {
+    "message": "API 地址和接口协议不匹配。请修改协议，或填写不含接口后缀的基础地址。"
+  },
+  "missingModel": {
+    "message": "请填写模型名称。"
+  },
+  "responsesIncomplete": {
+    "message": "Responses 未返回完整答案，未执行任何点击。"
+  },
+  "responsesEmpty": {
+    "message": "没有收到 Responses 文本答案，请检查模型或接口。"
+  },
+  "replyTruncated": {
+    "message": "模型回复被截断，请减少当前页面的题量后重试。"
+  },
+  "chatEmpty": {
+    "message": "没有收到模型正文，请检查接口是否兼容 Chat Completions。"
+  },
+  "invalidJson": {
+    "message": "模型没有返回可解析的 JSON，未执行任何点击。"
+  },
+  "missingAnswers": {
+    "message": "模型回复缺少 answers 列表，未执行任何点击。"
+  },
+  "phaseSolve": {
+    "message": "回答当前题"
+  },
+  "phaseNavigate": {
+    "message": "判断下一题入口"
+  },
+  "phaseVerify": {
+    "message": "核对是否已换题"
+  },
+  "serviceDefault": {
+    "message": "服务默认"
+  },
+  "connectionFailed": {
+    "message": "无法连接模型接口。请检查地址、服务状态和浏览器授权；接口不能重定向。"
+  },
+  "badRequestHint": {
+    "message": "请检查接口协议、思考深度和模型读图支持；不支持推理参数时选「服务默认」"
+  },
+  "keyError": {
+    "message": "请检查 API Key"
+  },
+  "modelAccessError": {
+    "message": "请检查模型访问权限"
+  },
+  "endpointError": {
+    "message": "请检查接口地址和模型名"
+  },
+  "rateLimitHint": {
+    "message": "可能已限流或额度不足"
+  },
+  "notApiJson": {
+    "message": "模型接口没有返回 JSON；请确认填写的是 API 地址，不是网页地址。"
+  },
+  "noSummary": {
+    "message": "接口未返回推理摘要；以下显示模型提供的答题解释。"
+  },
+  "noExplanation": {
+    "message": "模型未提供解释。"
+  },
+  "enterText": {
+    "message": "输入文本"
+  },
+  "clickOnce": {
+    "message": "点击一次"
+  },
+  "cancelPrefix": {
+    "message": "取消："
+  },
+  "modelHostFailed": {
+    "message": "后台模型请求无法启动。"
+  },
+  "openSidebar": {
+    "message": "打开侧边栏"
+  },
+  "showFloating": {
+    "message": "显示网页悬浮窗"
+  },
+  "showDot": {
+    "message": "显示半透明答题圆点"
+  },
+  "offscreenReason": {
+    "message": "运行网页答题入口使用的独立模型请求 Worker。"
+  },
+  "overlayTaskStart": {
+    "message": "网页入口连续自动答题。"
+  },
+  "modelNotConfigured": {
+    "message": "未配置模型。请先在侧栏保存模型设置。"
+  },
+  "noModelResult": {
+    "message": "未收到模型结果。"
+  },
+  "answeringContinuously": {
+    "message": "正在连续自动答题…"
+  },
+  "stopActions": {
+    "message": "已停止，已经发出的操作不会撤销。"
+  },
+  "taskAlreadyRunning": {
+    "message": "此标签页已有答题任务。"
+  },
+  "taskPageChanged": {
+    "message": "页面或标签页已切换，答题已停止。"
+  },
+  "clickStop": {
+    "message": "点击停止"
+  },
+  "clickStart": {
+    "message": "点击开始"
+  },
+  "responseLanguageInstruction": {
+    "message": "请用简体中文返回解释和状态信息；题干原文、新题证据和实际填写的答案应保留题目要求的语言。"
+  },
+  "logCount": {
+    "message": "$arg1$ 条",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "coverage": {
+    "message": "$arg1$ 题 · AI 识别",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ignoredReplies": {
+    "message": "已忽略 $arg1$ 条无效回复",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "suggestionsReady": {
+    "message": "AI 已从 HTML 识别并给出 $arg1$ 题建议。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "applyingQuestion": {
+    "message": "正在应用第 $arg1$ / $arg2$ 题…",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "partialSummary": {
+    "message": "$arg1$ 已核对 $arg2$ 题，另有 $arg3$ 题点击结果待核对。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      }
+    }
+  },
+  "applySummary": {
+    "message": "已核对 $arg1$ 题，点击结果待核对 $arg2$ 题，跳过 $arg3$ 题。插件未点击提交。$arg4$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      },
+      "arg4": {
+        "content": "$4"
+      }
+    }
+  },
+  "missingTitle": {
+    "message": "暂时读不到网页标题。$arg1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "apiPermissionDenied": {
+    "message": "浏览器未允许连接模型接口。$arg1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "snapshotStats": {
+    "message": "HTML $arg1$ 字符；$arg2$ 个元素；$arg3$ 个文档；$arg4$ 张图片。$arg5$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      },
+      "arg4": {
+        "content": "$4"
+      },
+      "arg5": {
+        "content": "$5"
+      }
+    }
+  },
+  "sendingHtml": {
+    "message": "正在将页面 HTML 发送给 $arg1$，由 AI 识别题目并规划点击…",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "initFailed": {
+    "message": "无法初始化插件：$arg1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "pageAccessDenied": {
+    "message": "浏览器未允许插件读取此页。$arg1$扩展商店和浏览器内部页面仍不支持。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "pageAccessUnknown": {
+    "message": "此页可能受浏览器保护，或未授予站点访问权限。若是普通网页，$arg1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "imagesUnavailable": {
+    "message": "$arg1$ 张图片未能读取或超出图片限额",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "imagesNotSent": {
+    "message": "未发送 $arg1$ 张图片，可在模型设置中开启读图",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "basicReadStats": {
+    "message": "HTML $arg1$ 字符，$arg2$ 个元素。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "questionEvidence": {
+    "message": "已核对新题原文：$arg1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "analyzingPage": {
+    "message": "正在分析第 $arg1$ 页…",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noActionsSummary": {
+    "message": "当前页没有可执行答案，已处理 $arg1$ 页、$arg2$ 题。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "incompleteSummary": {
+    "message": "本页存在未完成或待核对的操作，已停止翻页。已处理 $arg1$ 页、$arg2$ 题。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "finishedSummary": {
+    "message": "$arg1$ 已处理 $arg2$ 页、$arg3$ 题。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      }
+    }
+  },
+  "verifyNext": {
+    "message": "已点击下一题，正在让 AI 核对题目是否更新（$arg1$/3）…",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noNewQuestionSummary": {
+    "message": "已点击下一题，但多次核对仍未确认新题，已停止；不会重复分析同一道题或重复点击。已处理 $arg1$ 页、$arg2$ 题。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "pageLimitSummary": {
+    "message": "已达到单次 100 页上限。共处理 $arg1$ 题。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "imageLabel": {
+    "message": "页面图片，对应元素：$arg1$。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modelRequestStats": {
+    "message": "阶段：$arg1$；$arg2$ · $arg3$ · 思考深度：$arg4$；HTML $arg5$ 字符，元素 $arg6$ 个，图片 $arg7$ 张。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      },
+      "arg4": {
+        "content": "$4"
+      },
+      "arg5": {
+        "content": "$5"
+      },
+      "arg6": {
+        "content": "$6"
+      },
+      "arg7": {
+        "content": "$7"
+      }
+    }
+  },
+  "modelWait": {
+    "message": "已等待 $arg1$ 秒，等待模型返回答案或推理摘要…",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "httpError": {
+    "message": "模型接口返回 HTTP $arg1$$arg2$。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "httpResponse": {
+    "message": "HTTP $arg1$，正在读取回复…",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modelCompleted": {
+    "message": "耗时 $arg1$ 秒，生成 $arg2$ 题点击计划，忽略 $arg3$ 条无效回复。",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      }
+    }
+  },
+  "answerExplanation": {
+    "message": "$arg1$\n$arg2$\n计划：$arg3$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      }
+    }
+  },
+  "dotStatus": {
+    "message": "$arg1$｜$arg2$，右键展开",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "modelHostTitle": {
+    "message": "答题 Agent 模型请求"
+  }
+}

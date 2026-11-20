@@ -1,3 +1,4 @@
+import { t } from './i18n.mjs';
 import { applyAnswer, ensureActive, scanPage } from './runner.mjs';
 import { requestAnswers } from './model.mjs';
 
@@ -22,7 +23,7 @@ export function confirmedQuestionChange(result, before, after) {
 }
 
 export async function askModel(settings, snapshot, controller, log) {
-  const timer = setTimeout(() => controller.abort(new Error('模型请求超时（120 秒）。')), 120000);
+  const timer = setTimeout(() => controller.abort(new Error(t('timeout'))), 120000);
   try { return await requestAnswers(settings, snapshot, controller.signal, log); }
   finally { clearTimeout(timer); }
 }
@@ -36,17 +37,17 @@ export async function runQuiz({ tab, settings, controller, log, status, ask, onP
   const read = async () => {
     await ensureActive(tab, signal);
     const entry = await scanPage(await chrome.tabs.get(tab.id), settings);
-    log('页面读取', `HTML ${entry.result.html.length} 字符，${entry.result.targets.length} 个元素。`);
+    log(t('logRead'), t('basicReadStats', entry.result.html.length, entry.result.targets.length));
     return entry;
   };
   const acceptChange = (check, before, after) => {
     if (!confirmedQuestionChange(check, before, after)) {
-      if (check.pageChanged) log('换题核对', 'AI 未提供可核对的新题原文，不将页面文字变化视为换题。');
+      if (check.pageChanged) log(t('logChangeCheck'), t('noChangeEvidence'));
       return false;
     }
     const evidence = questionText(check.evidence);
-    if (visited.some((text) => text.includes(evidence))) throw new Error('检测到返回已经处理过的题目，已停止重复作答。');
-    log('换题确认', `已核对新题原文：${check.evidence}`);
+    if (visited.some((text) => text.includes(evidence))) throw new Error(t('repeatedQuestion'));
+    log(t('logChangeConfirmed'), t('questionEvidence', check.evidence));
     return true;
   };
   for (let round = 0; round < 100; round += 1) {
@@ -54,11 +55,11 @@ export async function runQuiz({ tab, settings, controller, log, status, ask, onP
     const { result: snapshot, documentId } = current;
     await onPage();
     visited.push(questionText(snapshot.html));
-    status(`正在分析第 ${pages + 1} 页…`);
+    status(t('analyzingPage', pages + 1));
     const result = await ask({ ...snapshot, phase: 'solve' });
     await ensureActive(tab, signal);
     onPlan(documentId, snapshot, result);
-    if (!result.answers.length) return result.message || `当前页没有可执行答案，已处理 ${pages} 页、${total} 题。`;
+    if (!result.answers.length) return result.message || t('noActionsSummary', pages, total);
     let incomplete = false;
     for (const answer of result.answers) {
       await ensureActive(tab, signal);
@@ -70,8 +71,8 @@ export async function runQuiz({ tab, settings, controller, log, status, ask, onP
     pages += 1;
     await pause(signal, 500);
     const after = await read();
-    if (result.rejected) return '模型回复包含无效操作，已停止自动翻页，请检查日志后重新分析。';
-    status('当前页作答完成，正在让 AI 判断是否有下一题／下一页…');
+    if (result.rejected) return t('invalidActions');
+    status(t('checkingNext'));
     const context = { completed: result.questions.map((question) => question.prompt), previousHtml: snapshot.html };
     const navigation = await ask({ ...after.result, ...context, phase: 'navigate' });
     await ensureActive(tab, signal);
@@ -79,15 +80,15 @@ export async function runQuiz({ tab, settings, controller, log, status, ask, onP
       current = after;
       continue;
     }
-    if (incomplete) return `本页存在未完成或待核对的操作，已停止翻页。已处理 ${pages} 页、${total} 题。`;
-    if (!navigation.next) return `${navigation.message || 'AI 判断没有下一题，答题结束。'} 已处理 ${pages} 页、${total} 题。`;
-    log('自动翻题', `${navigation.next.target}：${navigation.next.reason || 'AI 识别到下一题／下一页。'}`);
+    if (incomplete) return t('incompleteSummary', pages, total);
+    if (!navigation.next) return t('finishedSummary', navigation.message || t('noNext'), pages, total);
+    log(t('logNavigate'), `${navigation.next.target}：${navigation.next.reason || t('foundNext')}`);
     controller.navigating = true;
     try {
       const outcome = await applyAnswer(tab.id, after.documentId, after.result, {
         actions: [{ target: navigation.next.target, type: 'next', selected: null }],
       }, log, signal);
-      if (!['clicked', 'applied'].includes(outcome.state)) return '下一题控件无法点击，请检查运行日志。';
+      if (!['clicked', 'applied'].includes(outcome.state)) return t('nextNotClickable');
       let changed;
       for (let attempt = 0; attempt < 3; attempt += 1) {
         await pause(signal, attempt ? 1500 : 700);
@@ -98,15 +99,15 @@ export async function runQuiz({ tab, settings, controller, log, status, ask, onP
         }
         await ensureActive(tab, signal);
         const next = await read();
-        status(`已点击下一题，正在让 AI 核对题目是否更新（${attempt + 1}/3）…`);
+        status(t('verifyNext', attempt + 1));
         const check = await ask({ ...next.result, ...context, phase: 'verify' });
         await ensureActive(tab, signal);
         if (acceptChange(check, snapshot, next.result)) { changed = next; break; }
-        log('换题核对', check.message || '仍是刚才的题目或尚未加载新题，等待后再核对；不重新作答。');
+        log(t('logChangeCheck'), check.message || t('stillSameQuestion'));
       }
-      if (!changed) return `已点击下一题，但多次核对仍未确认新题，已停止；不会重复分析同一道题或重复点击。已处理 ${pages} 页、${total} 题。`;
+      if (!changed) return t('noNewQuestionSummary', pages, total);
       current = changed;
     } finally { controller.navigating = false; }
   }
-  return `已达到单次 100 页上限。共处理 ${total} 题。`;
+  return t('pageLimitSummary', total);
 }

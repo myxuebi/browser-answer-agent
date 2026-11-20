@@ -1,0 +1,884 @@
+{
+  "locale": {
+    "message": "en"
+  },
+  "appName": {
+    "message": "Answer Agent"
+  },
+  "appDescription": {
+    "message": "Analyze webpage HTML with your own AI model, preview answers, select options, fill fields, and continue to the next question."
+  },
+  "actionTitle": {
+    "message": "Answer Agent: Open panel (right-click for more interfaces)"
+  },
+  "brandTagline": {
+    "message": "WEB PRACTICE ASSISTANT"
+  },
+  "currentTask": {
+    "message": "CURRENT TASK"
+  },
+  "analyzePage": {
+    "message": "Analyze current page"
+  },
+  "readingTab": {
+    "message": "Reading the active tab…"
+  },
+  "preview": {
+    "message": "Analyze & preview"
+  },
+  "auto": {
+    "message": "Auto answer"
+  },
+  "stop": {
+    "message": "Stop"
+  },
+  "taskHint": {
+    "message": "Auto answer selects or fills answers and proceeds to the next question or page. Some sites grade answers immediately. Preview first."
+  },
+  "launcher": {
+    "message": "Answer interfaces"
+  },
+  "sidebar": {
+    "message": "Side panel"
+  },
+  "removeOverlay": {
+    "message": "Remove floating interface"
+  },
+  "floating": {
+    "message": "Floating window"
+  },
+  "dot": {
+    "message": "Compact dot"
+  },
+  "modelSettings": {
+    "message": "Model settings"
+  },
+  "notConfigured": {
+    "message": "Not configured"
+  },
+  "apiProtocol": {
+    "message": "API protocol"
+  },
+  "endpoint": {
+    "message": "API endpoint"
+  },
+  "modelName": {
+    "message": "Model name"
+  },
+  "modelPlaceholder": {
+    "message": "Enter the model ID provided by your service"
+  },
+  "effort": {
+    "message": "Reasoning effort"
+  },
+  "defaultEffort": {
+    "message": "Service default (omit parameter)"
+  },
+  "low": {
+    "message": "Low"
+  },
+  "medium": {
+    "message": "Medium"
+  },
+  "high": {
+    "message": "High"
+  },
+  "effortHint": {
+    "message": "Select an effort level only if your model supports it."
+  },
+  "requestSummary": {
+    "message": "Request a reasoning summary (supported Responses models only)"
+  },
+  "keyHint": {
+    "message": "Optional; saved locally and restored after restarting"
+  },
+  "keyPlaceholder": {
+    "message": "Leave blank for local services without authentication"
+  },
+  "deleteKeyHint": {
+    "message": "Clear the API Key field and save to delete the remembered key."
+  },
+  "vision": {
+    "message": "This model supports images (send accessible question and option images)"
+  },
+  "saveSettings": {
+    "message": "Save model settings"
+  },
+  "privacyHint": {
+    "message": "Starting analysis sends this page's HTML and element information to your model to identify questions and plan actions. Enable images to include accessible images."
+  },
+  "firstUse": {
+    "message": "Configure a model before starting."
+  },
+  "logs": {
+    "message": "Run logs"
+  },
+  "zeroLogs": {
+    "message": "0 entries"
+  },
+  "copyLogs": {
+    "message": "Copy logs"
+  },
+  "clear": {
+    "message": "Clear"
+  },
+  "logHint": {
+    "message": "Shows progress, waiting time, answer explanations, and reasoning summaries returned by the service, not the model's full internal reasoning."
+  },
+  "suggestions": {
+    "message": "Suggested answers"
+  },
+  "apply": {
+    "message": "Apply selected suggestions"
+  },
+  "sourceLabel": {
+    "message": "Source code: "
+  },
+  "usageNotice": {
+    "message": "For practice or authorized use. Model answers may be incorrect."
+  },
+  "privacyPolicy": {
+    "message": "Privacy policy"
+  },
+  "emptyLogs": {
+    "message": "No logs yet. Start analysis to view progress."
+  },
+  "emptyOverlayLogs": {
+    "message": "Start a task to view run logs."
+  },
+  "overlayLogs": {
+    "message": "Run logs (right-click the dot to expand)"
+  },
+  "minimize": {
+    "message": "Minimize to dot"
+  },
+  "closeOverlay": {
+    "message": "Remove floating interface"
+  },
+  "startAnswer": {
+    "message": "Start answering"
+  },
+  "overlayHint": {
+    "message": "Select and fill answers, then continue to the next question."
+  },
+  "dotTitle": {
+    "message": "Start answering (right-click to expand)"
+  },
+  "readingPage": {
+    "message": "Reading the current page…"
+  },
+  "taskEnded": {
+    "message": "The task ended. Reopen the extension and try again."
+  },
+  "stopped": {
+    "message": "Stopped."
+  },
+  "logRuntime": {
+    "message": "Progress"
+  },
+  "logError": {
+    "message": "Error"
+  },
+  "logStart": {
+    "message": "Started"
+  },
+  "logDone": {
+    "message": "Completed"
+  },
+  "logRead": {
+    "message": "Page read"
+  },
+  "logChangeCheck": {
+    "message": "Question check"
+  },
+  "logChangeConfirmed": {
+    "message": "New question confirmed"
+  },
+  "logNavigate": {
+    "message": "Next question"
+  },
+  "logInputPlan": {
+    "message": "Input plan"
+  },
+  "logClickPlan": {
+    "message": "Click plan"
+  },
+  "logInputResult": {
+    "message": "Input result"
+  },
+  "logClickResult": {
+    "message": "Click result"
+  },
+  "logModelRequest": {
+    "message": "Model request"
+  },
+  "logModelWaiting": {
+    "message": "Model processing"
+  },
+  "logModelResponse": {
+    "message": "Model response"
+  },
+  "logModelSummary": {
+    "message": "Reasoning summary"
+  },
+  "logModelInfo": {
+    "message": "Model information"
+  },
+  "logModelComplete": {
+    "message": "Model finished"
+  },
+  "logAnswerReason": {
+    "message": "Answer explanation"
+  },
+  "applied": {
+    "message": "Applied"
+  },
+  "unchanged": {
+    "message": "Already matches"
+  },
+  "clicked": {
+    "message": "Clicked; unverified"
+  },
+  "partial": {
+    "message": "Action requires verification"
+  },
+  "skipped": {
+    "message": "Skipped"
+  },
+  "clearLogFailed": {
+    "message": "Unable to clear logs. Reload the extension."
+  },
+  "logsCopied": {
+    "message": "Logs copied."
+  },
+  "copyDenied": {
+    "message": "Clipboard access was denied. Select and copy the logs manually."
+  },
+  "restrictedTab": {
+    "message": "The active tab is not a supported webpage."
+  },
+  "pageChanged": {
+    "message": "The tab or page changed. Analyze the target page again."
+  },
+  "endpointChanged": {
+    "message": "The API domain changed. Clear the old key or enter a key for the new service."
+  },
+  "settingsSaved": {
+    "message": "Model settings saved. You can analyze the current page."
+  },
+  "answerSkipped": {
+    "message": "The model did not provide an actionable suggestion. Skipped."
+  },
+  "htmlTruncated": {
+    "message": "The HTML limit was reached; only part of the page was sent"
+  },
+  "noAnswer": {
+    "message": "The model did not provide an actionable answer."
+  },
+  "configureFirst": {
+    "message": "Enter and save your model settings first."
+  },
+  "noTab": {
+    "message": "No readable tab is available."
+  },
+  "readingHtml": {
+    "message": "Reading page HTML and available elements…"
+  },
+  "timeoutNoClick": {
+    "message": "The model request timed out after 120 seconds. No clicks were made."
+  },
+  "useSidebar": {
+    "message": "Use the side panel to start answering."
+  },
+  "dotShown": {
+    "message": "The dot is in the bottom-right corner. Click to start; right-click to expand."
+  },
+  "floatingShown": {
+    "message": "The floating window is in the bottom-right corner. Start answering from the webpage."
+  },
+  "stopNext": {
+    "message": "Stopped. No further questions will be started."
+  },
+  "stopping": {
+    "message": "Stopping. An action already in progress may have changed the current answer."
+  },
+  "ready": {
+    "message": "Ready. Analyze and preview first."
+  },
+  "siteAccess": {
+    "message": "In the extension's browser settings, set site access to 'On all sites'."
+  },
+  "activeTabChanged": {
+    "message": "The active tab changed. Operations stopped."
+  },
+  "protectedPage": {
+    "message": "This page is protected or is not a regular webpage. Use an HTTP or HTTPS page."
+  },
+  "pageReadFailed": {
+    "message": "Unable to read this page. Wait for it to finish loading, then try again."
+  },
+  "cannotRead": {
+    "message": "Unable to read the page."
+  },
+  "unknownTarget": {
+    "message": "The model returned an element that was not provided."
+  },
+  "verifyFailed": {
+    "message": "Unable to verify this action. The page may have changed or reloaded."
+  },
+  "element": {
+    "message": "Element"
+  },
+  "inputPrefix": {
+    "message": "Enter: "
+  },
+  "deselect": {
+    "message": "Deselect"
+  },
+  "select": {
+    "message": "Select"
+  },
+  "click": {
+    "message": "Click"
+  },
+  "inputVerified": {
+    "message": "Entered and verified the value"
+  },
+  "clickVerified": {
+    "message": "Clicked and verified the selection"
+  },
+  "clickUnverified": {
+    "message": "Clicked; the page does not expose a selection state"
+  },
+  "alreadyMatches": {
+    "message": "Already matches the desired state; no action needed"
+  },
+  "actionSkipped": {
+    "message": "Skipped"
+  },
+  "actionUnverified": {
+    "message": "The action result requires verification"
+  },
+  "localPageChanged": {
+    "message": "The page changed. Analyze it again."
+  },
+  "targetChanged": {
+    "message": "The target changed or is not actionable. Analyze the page again."
+  },
+  "inputNotRetained": {
+    "message": "The field changed or did not retain the entered value."
+  },
+  "nextClicked": {
+    "message": "Clicked next question/page. Waiting for new content."
+  },
+  "selectionMismatch": {
+    "message": "The selection does not match the expected state after clicking."
+  },
+  "noSelectionState": {
+    "message": "The click was simulated; the page does not expose a verifiable selection state."
+  },
+  "timeout": {
+    "message": "The model request timed out after 120 seconds."
+  },
+  "noChangeEvidence": {
+    "message": "The model did not provide verifiable new-question text. Page text changes alone do not count as a new question."
+  },
+  "repeatedQuestion": {
+    "message": "A previously processed question was detected. Stopped to avoid answering it again."
+  },
+  "invalidActions": {
+    "message": "The model returned invalid actions. Automatic navigation stopped. Check the logs and analyze again."
+  },
+  "checkingNext": {
+    "message": "Current-page actions are complete. Asking the model whether there is a next question/page…"
+  },
+  "noNext": {
+    "message": "The model found no next question. Answering finished."
+  },
+  "foundNext": {
+    "message": "The model identified a next question/page."
+  },
+  "nextNotClickable": {
+    "message": "The next-question control cannot be clicked. Check the run logs."
+  },
+  "stillSameQuestion": {
+    "message": "The previous question is still shown or the new question has not loaded. Waiting before checking again; not answering again."
+  },
+  "invalidEndpoint": {
+    "message": "Enter a full API endpoint, such as http://localhost:11434/v1."
+  },
+  "insecureEndpoint": {
+    "message": "Use HTTPS (HTTP is allowed for loopback services). Do not include credentials, query parameters, or fragments."
+  },
+  "invalidSettings": {
+    "message": "Invalid API protocol or reasoning effort."
+  },
+  "protocolMismatch": {
+    "message": "The endpoint does not match the protocol. Change the protocol or enter a base URL without an API method suffix."
+  },
+  "missingModel": {
+    "message": "Enter a model name."
+  },
+  "responsesIncomplete": {
+    "message": "The Responses API did not return a complete answer. No clicks were made."
+  },
+  "responsesEmpty": {
+    "message": "No Responses text answer was received. Check the model and endpoint."
+  },
+  "replyTruncated": {
+    "message": "The model response was truncated. Reduce the number of questions on the page and retry."
+  },
+  "chatEmpty": {
+    "message": "No model text was received. Check Chat Completions compatibility."
+  },
+  "invalidJson": {
+    "message": "The model did not return valid JSON. No clicks were made."
+  },
+  "missingAnswers": {
+    "message": "The model response has no answers list. No clicks were made."
+  },
+  "phaseSolve": {
+    "message": "Answer current questions"
+  },
+  "phaseNavigate": {
+    "message": "Find next-question control"
+  },
+  "phaseVerify": {
+    "message": "Verify the new question"
+  },
+  "serviceDefault": {
+    "message": "Service default"
+  },
+  "connectionFailed": {
+    "message": "Unable to connect to the model API. Check the endpoint, service, and browser permissions. Redirects are not supported."
+  },
+  "badRequestHint": {
+    "message": "Check the protocol, reasoning effort, and image support. Use Service default if reasoning parameters are unsupported"
+  },
+  "keyError": {
+    "message": "Check your API key"
+  },
+  "modelAccessError": {
+    "message": "Check model access permissions"
+  },
+  "endpointError": {
+    "message": "Check the endpoint and model name"
+  },
+  "rateLimitHint": {
+    "message": "Rate limit or insufficient quota"
+  },
+  "notApiJson": {
+    "message": "The model service did not return JSON. Enter an API endpoint, not a website URL."
+  },
+  "noSummary": {
+    "message": "No reasoning summary was returned. The model's answer explanations are shown below."
+  },
+  "noExplanation": {
+    "message": "The model did not provide an explanation."
+  },
+  "enterText": {
+    "message": "Enter text"
+  },
+  "clickOnce": {
+    "message": "Click once"
+  },
+  "cancelPrefix": {
+    "message": "Deselect: "
+  },
+  "modelHostFailed": {
+    "message": "Unable to start the background model request."
+  },
+  "openSidebar": {
+    "message": "Open side panel"
+  },
+  "showFloating": {
+    "message": "Show floating window"
+  },
+  "showDot": {
+    "message": "Show compact answering dot"
+  },
+  "offscreenReason": {
+    "message": "Run a packaged model-request Worker for the webpage answering interface."
+  },
+  "overlayTaskStart": {
+    "message": "Continuous answering started from the webpage interface."
+  },
+  "modelNotConfigured": {
+    "message": "No model is configured. Save model settings in the side panel first."
+  },
+  "noModelResult": {
+    "message": "No model result was received."
+  },
+  "answeringContinuously": {
+    "message": "Answering questions continuously…"
+  },
+  "stopActions": {
+    "message": "Stopped. Actions already performed will not be undone."
+  },
+  "taskAlreadyRunning": {
+    "message": "This tab already has an answering task."
+  },
+  "taskPageChanged": {
+    "message": "The page or tab changed. Answering stopped."
+  },
+  "clickStop": {
+    "message": "Click to stop"
+  },
+  "clickStart": {
+    "message": "Click to start"
+  },
+  "responseLanguageInstruction": {
+    "message": "Return explanations and status messages in English. Preserve the original language of question text, evidence excerpts, and answers required by the question."
+  },
+  "logCount": {
+    "message": "$arg1$ entries",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "coverage": {
+    "message": "$arg1$ questions · AI identified",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "ignoredReplies": {
+    "message": "Ignored $arg1$ invalid responses",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "suggestionsReady": {
+    "message": "AI identified $arg1$ questions in the HTML and suggested answers.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "applyingQuestion": {
+    "message": "Applying question $arg1$ of $arg2$…",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "partialSummary": {
+    "message": "$arg1$ Verified $arg2$ questions; $arg3$ actions require verification.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      }
+    }
+  },
+  "applySummary": {
+    "message": "Verified $arg1$ questions; $arg2$ require verification; skipped $arg3$. The extension did not click Submit. $arg4$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      },
+      "arg4": {
+        "content": "$4"
+      }
+    }
+  },
+  "missingTitle": {
+    "message": "The page title is unavailable. $arg1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "apiPermissionDenied": {
+    "message": "The browser denied access to the model API. $arg1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "snapshotStats": {
+    "message": "HTML: $arg1$ characters; $arg2$ elements; $arg3$ documents; $arg4$ images. $arg5$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      },
+      "arg4": {
+        "content": "$4"
+      },
+      "arg5": {
+        "content": "$5"
+      }
+    }
+  },
+  "sendingHtml": {
+    "message": "Sending page HTML to $arg1$ to identify questions and plan actions…",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "initFailed": {
+    "message": "Unable to initialize the extension: $arg1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "pageAccessDenied": {
+    "message": "The browser denied access to this page. $arg1$ Extension stores and browser internal pages remain unsupported.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "pageAccessUnknown": {
+    "message": "This page may be protected or site access may be denied. For a regular webpage: $arg1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "imagesUnavailable": {
+    "message": "$arg1$ images could not be read or exceeded the image limit",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "imagesNotSent": {
+    "message": "$arg1$ images were not sent. Enable image support in model settings",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "basicReadStats": {
+    "message": "HTML: $arg1$ characters; $arg2$ elements.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "questionEvidence": {
+    "message": "Verified new-question text: $arg1$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "analyzingPage": {
+    "message": "Analyzing page $arg1$…",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noActionsSummary": {
+    "message": "No actionable answers on this page. Processed $arg1$ pages and $arg2$ questions.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "incompleteSummary": {
+    "message": "Some actions on this page are incomplete or unverified. Navigation stopped. Processed $arg1$ pages and $arg2$ questions.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "finishedSummary": {
+    "message": "$arg1$ Processed $arg2$ pages and $arg3$ questions.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      }
+    }
+  },
+  "verifyNext": {
+    "message": "Next was clicked. Asking AI to verify the new question ($arg1$/3)…",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "noNewQuestionSummary": {
+    "message": "Next was clicked, but repeated checks did not confirm a new question. Stopped without re-answering or re-clicking. Processed $arg1$ pages and $arg2$ questions.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "pageLimitSummary": {
+    "message": "Reached the 100-page task limit. Processed $arg1$ questions.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "imageLabel": {
+    "message": "Webpage image for element: $arg1$.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modelRequestStats": {
+    "message": "Phase: $arg1$; $arg2$ · $arg3$ · Effort: $arg4$; HTML: $arg5$ characters, $arg6$ elements, $arg7$ images.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      },
+      "arg4": {
+        "content": "$4"
+      },
+      "arg5": {
+        "content": "$5"
+      },
+      "arg6": {
+        "content": "$6"
+      },
+      "arg7": {
+        "content": "$7"
+      }
+    }
+  },
+  "modelWait": {
+    "message": "Waited $arg1$ seconds for an answer or reasoning summary…",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "httpError": {
+    "message": "The model API returned HTTP $arg1$$arg2$.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "httpResponse": {
+    "message": "HTTP $arg1$. Reading the response…",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      }
+    }
+  },
+  "modelCompleted": {
+    "message": "Finished in $arg1$ seconds; planned $arg2$ questions; ignored $arg3$ invalid responses.",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      }
+    }
+  },
+  "answerExplanation": {
+    "message": "$arg1$\n$arg2$\nPlan: $arg3$",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      },
+      "arg3": {
+        "content": "$3"
+      }
+    }
+  },
+  "dotStatus": {
+    "message": "$arg1$ | $arg2$; right-click to expand",
+    "placeholders": {
+      "arg1": {
+        "content": "$1"
+      },
+      "arg2": {
+        "content": "$2"
+      }
+    }
+  },
+  "modelHostTitle": {
+    "message": "Answer Agent model requests"
+  }
+}

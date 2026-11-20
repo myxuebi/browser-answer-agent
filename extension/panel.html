@@ -3,77 +3,77 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>答题 Agent</title>
+  <title data-i18n="appName">答题 Agent</title>
   <link rel="stylesheet" href="panel.css">
 </head>
 <body>
   <main>
     <header class="brand">
       <img class="brand-icon" src="icons/logo.svg" width="43" height="43" alt="">
-      <div><div class="eyebrow">网页练习助手</div><h1>答题 Agent</h1></div>
+      <div><div class="eyebrow" data-i18n="brandTagline">网页练习助手</div><h1 data-i18n="appName">答题 Agent</h1></div>
     </header>
 
     <section class="card workspace" aria-labelledby="page-heading">
-      <div class="eyebrow">当前任务</div>
-      <h2 id="page-heading">分析当前网页</h2>
-      <p id="page-name" class="page-name">正在读取当前标签页…</p>
+      <div class="eyebrow" data-i18n="currentTask">当前任务</div>
+      <h2 id="page-heading" data-i18n="analyzePage">分析当前网页</h2>
+      <p id="page-name" class="page-name" data-i18n="readingTab">正在读取当前标签页…</p>
       <div class="actions">
-        <button id="preview" type="button" class="primary" disabled>分析并预览</button>
-        <button id="auto" type="button" disabled>自动答题</button>
-        <button id="stop" type="button" hidden>停止</button>
+        <button id="preview" type="button" class="primary" disabled data-i18n="preview">分析并预览</button>
+        <button id="auto" type="button" disabled data-i18n="auto">自动答题</button>
+        <button id="stop" type="button" hidden data-i18n="stop">停止</button>
       </div>
-      <p class="hint">自动答题会点选或填写答案，并继续下一题／下一页。部分网页作答后会自行判分，建议先预览。</p>
-      <div class="launcher" id="launcher" role="group" aria-label="答题入口">
-        <button type="button" data-mode="sidebar" title="移除网页悬浮入口">侧边栏</button>
-        <button type="button" data-mode="floating">悬浮窗</button>
-        <button type="button" data-mode="dot">隐藏圆点</button>
+      <p class="hint" data-i18n="taskHint">自动答题会点选或填写答案，并继续下一题／下一页。部分网页作答后会自行判分，建议先预览。</p>
+      <div class="launcher" id="launcher" role="group" aria-label="答题入口" data-i18n-aria-label="launcher">
+        <button type="button" data-mode="sidebar" title="移除网页悬浮入口" data-i18n-title="removeOverlay" data-i18n="sidebar">侧边栏</button>
+        <button type="button" data-mode="floating" data-i18n="floating">悬浮窗</button>
+        <button type="button" data-mode="dot" data-i18n="dot">隐藏圆点</button>
       </div>
     </section>
 
     <details class="card" id="settings-panel">
-      <summary><span>模型设置</span><span id="model-badge" class="badge">未配置</span></summary>
+      <summary><span data-i18n="modelSettings">模型设置</span><span id="model-badge" class="badge" data-i18n="notConfigured">未配置</span></summary>
       <form id="settings-form">
         <fieldset id="settings-fields" disabled>
-          <label for="api">接口协议</label>
+          <label for="api" data-i18n="apiProtocol">接口协议</label>
           <select id="api"><option value="chat">Chat Completions</option><option value="responses">OpenAI Responses</option></select>
-          <label for="endpoint">API 地址</label>
+          <label for="endpoint" data-i18n="endpoint">API 地址</label>
           <input id="endpoint" type="url" placeholder="https://api.example.com/v1" spellcheck="false" required>
-          <label for="model">模型名称</label>
-          <input id="model" placeholder="填写服务商提供的模型 ID" spellcheck="false" required>
-          <label for="effort">思考深度</label>
+          <label for="model" data-i18n="modelName">模型名称</label>
+          <input id="model" placeholder="填写服务商提供的模型 ID" data-i18n-placeholder="modelPlaceholder" spellcheck="false" required>
+          <label for="effort" data-i18n="effort">思考深度</label>
           <select id="effort">
-            <option value="">服务默认（不传参数）</option>
-            <option value="low">低</option><option value="medium">中</option><option value="high">高</option>
+            <option value="" data-i18n="defaultEffort">服务默认（不传参数）</option>
+            <option value="low" data-i18n="low">低</option><option value="medium" data-i18n="medium">中</option><option value="high" data-i18n="high">高</option>
           </select>
-          <p class="hint">仅在模型支持所选档位时设置。</p>
-          <label class="check"><input id="summary" type="checkbox"><span>请求推理摘要（仅支持该能力的 Responses 模型）</span></label>
-          <label for="key">API Key <span class="hint">选填，保存在本机，重启后自动恢复</span></label>
-          <input id="key" type="password" autocomplete="off" placeholder="本地无鉴权服务可留空">
-          <p class="hint">清空 API Key 后保存，即可删除已记住的 Key。</p>
-          <label class="check"><input id="vision" type="checkbox"><span>当前模型支持读图（发送可读取的题干和选项图片）</span></label>
-          <button type="submit">保存模型设置</button>
+          <p class="hint" data-i18n="effortHint">仅在模型支持所选档位时设置。</p>
+          <label class="check"><input id="summary" type="checkbox"><span data-i18n="requestSummary">请求推理摘要（仅支持该能力的 Responses 模型）</span></label>
+          <label for="key">API Key <span class="hint" data-i18n="keyHint">选填，保存在本机，重启后自动恢复</span></label>
+          <input id="key" type="password" autocomplete="off" placeholder="本地无鉴权服务可留空" data-i18n-placeholder="keyPlaceholder">
+          <p class="hint" data-i18n="deleteKeyHint">清空 API Key 后保存，即可删除已记住的 Key。</p>
+          <label class="check"><input id="vision" type="checkbox"><span data-i18n="vision">当前模型支持读图（发送可读取的题干和选项图片）</span></label>
+          <button type="submit" data-i18n="saveSettings">保存模型设置</button>
         </fieldset>
-        <p class="hint">开始分析会把当前页面 HTML 和可点击元素发给模型，由 AI 识别题目并规划点击。勾选读图后附带可读取的图片。</p>
+        <p class="hint" data-i18n="privacyHint">开始分析会把当前页面 HTML 和可点击元素发给模型，由 AI 识别题目并规划点击。勾选读图后附带可读取的图片。</p>
       </form>
     </details>
 
-    <p id="status" class="status" role="status" aria-live="polite">首次使用请配置模型。</p>
+    <p id="status" class="status" role="status" aria-live="polite" data-i18n="firstUse">首次使用请配置模型。</p>
     <details class="card log-card" open>
-      <summary>运行日志 <span id="log-count" class="badge">0 条</span></summary>
-      <div class="log-tools"><button id="log-copy" type="button">复制日志</button><button id="log-clear" type="button">清空</button></div>
-      <div id="run-logs" class="run-logs" role="log" aria-label="运行日志" aria-live="polite"></div>
-      <p class="hint log-hint">显示执行进度、等待时间、答题解释及接口返回的推理摘要；不代表模型完整的内部思考。</p>
+      <summary><span data-i18n="logs">运行日志</span> <span id="log-count" class="badge" data-i18n="zeroLogs">0 条</span></summary>
+      <div class="log-tools"><button id="log-copy" type="button" data-i18n="copyLogs">复制日志</button><button id="log-clear" type="button" data-i18n="clear">清空</button></div>
+      <div data-i18n-empty-label="emptyLogs" id="run-logs" class="run-logs" role="log" aria-label="运行日志" data-i18n-aria-label="logs" aria-live="polite"></div>
+      <p class="hint log-hint" data-i18n="logHint">显示执行进度、等待时间、答题解释及接口返回的推理摘要；不代表模型完整的内部思考。</p>
     </details>
-    <section id="results" aria-label="模型建议" hidden>
-      <div class="result-title"><h2>模型建议</h2><span id="coverage" class="badge"></span></div>
+    <section id="results" aria-label="模型建议" data-i18n-aria-label="suggestions" hidden>
+      <div class="result-title"><h2 data-i18n="suggestions">模型建议</h2><span id="coverage" class="badge"></span></div>
       <div id="questions" class="questions"></div>
-      <button id="apply" type="button" class="primary apply" hidden>应用勾选的建议</button>
+      <button id="apply" type="button" class="primary apply" hidden data-i18n="apply">应用勾选的建议</button>
     </section>
     <footer>
       <div>Powered by myxuebi</div>
-      <div>开源地址：<a href="https://github.com/myxuebi/browser-answer-agent" target="_blank" rel="noopener noreferrer">github.com/myxuebi/browser-answer-agent</a></div>
-      <div>仅用于练习或经授权的场景。模型答案可能有误。</div>
-      <a href="https://github.com/myxuebi/browser-answer-agent/blob/main/PRIVACY.md" target="_blank" rel="noopener noreferrer">隐私说明</a>
+      <div><span data-i18n="sourceLabel">开源地址：</span><a href="https://github.com/myxuebi/browser-answer-agent" target="_blank" rel="noopener noreferrer">github.com/myxuebi/browser-answer-agent</a></div>
+      <div data-i18n="usageNotice">仅用于练习或经授权的场景。模型答案可能有误。</div>
+      <a href="https://github.com/myxuebi/browser-answer-agent/blob/main/PRIVACY.md" target="_blank" rel="noopener noreferrer" data-i18n="privacyPolicy">隐私说明</a>
     </footer>
   </main>
   <script type="module" src="panel.mjs"></script>

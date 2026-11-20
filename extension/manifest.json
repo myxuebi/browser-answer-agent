@@ -1,15 +1,40 @@
 {
   "manifest_version": 3,
-  "name": "答题 Agent",
-  "description": "自定义 AI 模型分析网页 HTML，预览答案、模拟点选和输入，并自动继续下一题。",
-  "version": "0.5.2",
+  "name": "__MSG_appName__",
+  "description": "__MSG_appDescription__",
+  "version": "0.6.0",
   "author": "myxuebi",
   "homepage_url": "https://github.com/myxuebi/browser-answer-agent",
   "minimum_chrome_version": "116",
-  "permissions": ["scripting", "storage", "sidePanel", "contextMenus", "offscreen"],
-  "host_permissions": ["*://*/*"],
-  "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" },
-  "action": { "default_title": "答题 Agent：打开入口（右键可切换）", "default_icon": { "16": "icons/16.png", "32": "icons/32.png" } },
-  "background": { "service_worker": "background.js", "type": "module" },
-  "side_panel": { "default_path": "panel.html" }
+  "permissions": [
+    "scripting",
+    "storage",
+    "sidePanel",
+    "contextMenus",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "action": {
+    "default_title": "__MSG_actionTitle__",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "default_locale": "zh_CN"
 }

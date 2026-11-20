@@ -10,7 +10,16 @@
 
 插件将网页 HTML 和带编号的元素交给 AI 分析，再在本地执行经过校验的点击、输入和下一题操作。支持 Chat Completions、OpenAI Responses、本机兼容接口、思考深度、图片输入和实时日志。使用者需自行配置模型服务；模型服务可能计费。
 
+界面支持 **简体中文和英文**，随浏览器界面语言自动选择。安装包包含 `_locales/zh_CN` 和 `_locales/en`，默认语言为简体中文；英文浏览器显示 Answer Agent。侧栏、浮窗、菜单、运行提示和报错均已本地化，题干和实际答案保留题目所需的语言。
+
 ![插件界面](docs/screenshot.png)
+
+<details>
+<summary>English interface</summary>
+
+![English interface](docs/screenshot-en.png)
+
+</details>
 
 ## 安装
 

@@ -32,12 +32,15 @@ export function createDemoServer() {
         }
         const payload = JSON.parse(body);
         const responses = request.url === '/v1/responses';
+        const english = (payload.instructions || payload.messages?.[0]?.content || '').includes('Return explanations and status messages in English.');
         const input = (responses ? payload.input : payload.messages).at(-1).content;
         const { html, targets, phase, previousHtml = '' } = JSON.parse(typeof input === 'string' ? input : input[0].text);
         if (phase === 'verify') {
           const heading = html.match(/<h2\b[^>]*>([\s\S]*?)<\/h2>/i)?.[1]?.replace(/<[^>]*>/g, '').trim() || '';
           const pageChanged = Boolean(heading && !previousHtml.includes(heading));
-          const content = JSON.stringify({ answers: [], pageChanged, evidence: pageChanged ? heading : '', message: pageChanged ? '已展示新的题目。' : '当前仍是同一道题。' });
+          const content = JSON.stringify({ answers: [], pageChanged, evidence: pageChanged ? heading : '', message: pageChanged
+            ? english ? 'A new question is displayed.' : '已展示新的题目。'
+            : english ? 'The same question is still displayed.' : '当前仍是同一道题。' });
           response.writeHead(200, { 'Content-Type': 'application/json' }).end(JSON.stringify(responses
             ? { status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text: content }] }] }
             : { choices: [{ message: { content } }] }));
@@ -45,7 +48,8 @@ export function createDemoServer() {
         }
         if (phase === 'navigate') {
           const next = targets.find((target) => target.kind === 'navigation');
-          const content = JSON.stringify({ answers: [], next: next ? { target: next.id, reason: '演示页还有下一题。' } : null, message: next ? '' : '没有下一题，答题结束。' });
+          const content = JSON.stringify({ answers: [], next: next ? { target: next.id, reason: english ? 'The demo page has a next question.' : '演示页还有下一题。' } : null,
+            message: next ? '' : english ? 'No next question. Answering finished.' : '没有下一题，答题结束。' });
           response.writeHead(200, { 'Content-Type': 'application/json' }).end(JSON.stringify(responses
             ? { status: 'completed', output: [{ type: 'message', content: [{ type: 'output_text', text: content }] }] }
             : { choices: [{ message: { content } }] }));
@@ -66,14 +70,16 @@ export function createDemoServer() {
               (selected !== false || item.selected === true));
             return target ? [{ target: target.id, selected }] : [];
           });
-          return actions.length ? [{ question, actions, reason: '这是演示服务根据 HTML 元素编号返回的预设答案。' }] : [];
+          return actions.length ? [{ question, actions, reason: english
+            ? 'This is a preset demo answer using the element identifiers from the HTML.'
+            : '这是演示服务根据 HTML 元素编号返回的预设答案。' }] : [];
         });
         const inputs = targets.filter((target) => target.kind === 'input');
         if (inputs.length && (html.includes('请分别填写数字') || html.includes('最后一题'))) {
           const values = html.includes('最后一题') ? ['done'] : ['42', 'hello world', '测试成功'];
           answers.push({ question: html.includes('最后一题') ? '最后一题：输入 done' : '填写数字、短句和词语',
             actions: inputs.map((target, index) => ({ target: target.id, type: 'fill', value: values[index] })),
-            reason: '演示页面指定的输入内容。' });
+            reason: english ? 'The text specified by the demo question.' : '演示页面指定的输入内容。' });
         }
         response.writeHead(200, { 'Content-Type': 'application/json' });
         const content = JSON.stringify({ answers });
